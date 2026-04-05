@@ -38,7 +38,7 @@
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/srvmon.git
+git clone https://github.com/asspye/srvmon.git
 cd srvmon
 ```
 
