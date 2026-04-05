@@ -1,0 +1,28 @@
+services:
+  srvmon:
+    image: srvmon:latest
+    build: .
+    container_name: srvmon
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    volumes:
+      # Host metrics access
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /etc:/host/etc:ro
+      # Docker socket for AmneziaWG access
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      # gopsutil host paths
+      HOST_PROC: /host/proc
+      HOST_SYS: /host/sys
+      HOST_ETC: /host/etc
+      # AmneziaWG Docker container name
+      AWG_CONTAINER_NAME: ${AWG_CONTAINER_NAME:-amnezia-awg}
+      # Auth
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      # Server port
+      PORT: 8000
